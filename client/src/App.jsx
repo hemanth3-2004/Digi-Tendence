@@ -1,12 +1,25 @@
-import React from "react"
-import LoginPage from "./components/LoginPage"
-LoginPage
+import React, { useState } from "react"
+import LoginPage from "./components/Authentication/LoginPage";
+import TeacherDashboard from "./components/Teacher/TeacherDashboard";
+import StudentDashboard from "./components/Student/StudentDashboard";
 function App() {
+  const [teacher,setNewTeacher] = useState(false);
+  const [student,setNewStudent] = useState(false);
+  const [loggedInUser,setLoggedInUser] = useState(null);
 
+  const handleLoginSuccess = (studentData)=> {
+    setLoggedInUser(studentData);
+  }
   return (
     <>
       <div>
-         <LoginPage />
+        {!teacher && !student  ? 
+        (<LoginPage setNewStudent={setNewStudent} setNewTeacher={setNewTeacher} onLoginSuccess={handleLoginSuccess}/>
+
+        ) : null}
+        {teacher && <TeacherDashboard loggedInUser={loggedInUser}/>}
+        {student && <StudentDashboard loggedInUser={loggedInUser}/>}
+       
       </div>
     </>
   )

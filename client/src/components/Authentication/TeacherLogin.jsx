@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
 
-const TeacherLogin = ({signup}) => {
+const TeacherLogin = ({signup,setNewTeacher,onLoginSuccess}) => {
   const [formData,setFormData] = useState({
     name: "",
     password: ""
@@ -23,6 +23,8 @@ const TeacherLogin = ({signup}) => {
       if(res.data.success){
         const teacher = res.data.teacher;
         alert(`Welcome ${teacher.name}!`);
+        onLoginSuccess(teacher);
+        setNewTeacher(true);
       }else{
         alert("Invalid name or password ");
       }

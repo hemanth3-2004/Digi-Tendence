@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
-const StudentLogin = ({signup}) => {
+const StudentLogin = ({signup,setNewStudent,onLoginSuccess}) => {
   const [formData,setFormData] = useState({
     bec: "",
     password: ""
@@ -21,6 +21,8 @@ const StudentLogin = ({signup}) => {
       if(res.data.success){
         const student = res.data.student;
         alert(`Welcome ${student.name}!`);
+        onLoginSuccess(student);
+        setNewStudent(true);
       }else{
         alert("Invalid bec or password");
       }
@@ -32,7 +34,7 @@ const StudentLogin = ({signup}) => {
 
   return (
      <div className='border-2 rounded-lg h-[65%] mx-3 '>
-         <form className="flex flex-col gap-3 justify items-center items-center my-4" onSubmit={handleSubmit}>
+         <form className="flex flex-col gap-3 justify  items-center my-4" onSubmit={handleSubmit}>
          <div>
         <input className='focus:outline-blue-800 rounded-md h-[2.5rem] w-[20rem] pl-4' 
         type="text" 

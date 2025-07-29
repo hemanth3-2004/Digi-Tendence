@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import StudentSignup from './Authentication/StudentSignup';
-import StudentLogin from './Authentication/StudentLogin';
-import TeacherSignup from './Authentication/TeacherSignup';
-import TeacherLogin from './Authentication/TeacherLogin';
+import StudentLogin from "./StudentLogin";
+import StudentSignup from "./StudentSignup";
+import TeacherLogin from "./TeacherLogin";
+import TeacherSignup from './TeacherSignup';
 
-const LoginPage = () => {
+const LoginPage = ({setNewStudent,setNewTeacher,onLoginSuccess}) => {
     const [signup,setSignup] = useState(false);
     const [student,setStudent] = useState(false);
     const [login,setLogin] = useState(false);
@@ -61,7 +61,7 @@ const LoginPage = () => {
         : null}
 
         {student && login ? 
-            <StudentLogin signup={signup}/>
+            <StudentLogin signup={signup} setNewStudent={setNewStudent} onLoginSuccess={onLoginSuccess}/>
         : null}
 
         {teacher && signup ? 
@@ -69,7 +69,7 @@ const LoginPage = () => {
         : null}
 
         {teacher && login ? 
-           <TeacherLogin signup={signup}/>
+           <TeacherLogin signup={signup} setNewTeacher={setNewTeacher} onLoginSuccess={onLoginSuccess}/>
         : null}
         </div>
    </div>
