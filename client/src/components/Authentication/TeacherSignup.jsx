@@ -18,11 +18,11 @@ const TeacherSignup = ({signup}) => {
   const handleSubmit= async(e)=> {
     e.preventDefault();
     try{
-      const res = await axios.post('http://localhost:5000/addTeacher',formData);
+      await axios.post('http://localhost:5000/addTeacher',formData);
       alert('Teacher registered successfully');
     }catch(err){
       console.error(err);
-      alert("Error registering teacher");
+      alert("Teacher registered already");
     }
   }
   return (
