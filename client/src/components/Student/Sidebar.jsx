@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, {useState,useEffect} from 'react';
 import { CiLogout } from "react-icons/ci";
 axios
-const Sidebar = ({loggedInUser}) => {
+const Sidebar = (props) => {
     const [image,setImage] = useState(null);
-    const userId = loggedInUser.id;
+    const userId = props.loggedInUser.id;
 
     const handleImageChange = async(e) => {
         const file = e.target.files[0];
@@ -42,8 +42,8 @@ const Sidebar = ({loggedInUser}) => {
             </div>
             </div>
             <div className='flex flex-col justify-center items-center gap-3 '>
-                <div className='text-[1.5rem] font-medium'><h2>{loggedInUser.name}</h2></div>
-                <div className='text-[1.2rem] font-medium'><h2>{loggedInUser.bec_number}</h2></div>
+                <div className='text-[1.5rem] font-medium'><h2>{props.loggedInUser.name}</h2></div>
+                <div className='text-[1.2rem] font-medium'><h2>{props.loggedInUser.bec_number}</h2></div>
                 <div className='text-[1.4rem] font-medium text-white'>
                 <button className='bg-red-500 px-2  rounded-md hover:shadow-lg hover:shadow-red-200 flex'
                 onClick={()=> {
@@ -60,8 +60,20 @@ const Sidebar = ({loggedInUser}) => {
         </div>
         <div className=' h-[45%] rounded-md bg-gray-100 '>
             <div className='flex flex-col gap-1  pt-2 justify-center items-center '>
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'><h2>Attendence</h2></div>
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'><h2>Marks</h2></div>
+            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'
+            onClick={()=>{
+                props.setAttendance(true)
+                props.setMarks(false)
+            }}
+            ><h2>Attendence</h2></div>
+
+
+            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'
+            onClick={()=>{
+                props.setMarks(true)
+                props.setAttendance(false)
+            }}
+            ><h2>Marks</h2></div>
             </div>
         </div>
       </div>

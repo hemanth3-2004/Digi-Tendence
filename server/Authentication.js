@@ -129,6 +129,16 @@ app.post("/logTeacher", async(req,res)=> {
     }
 });
 
+app.get("/fetchStudents", async(req,res)=> {
+  try{
+    const result = await pool.query("SELECT * FROM students ORDER BY id");
+      res.status(200).json(result.rows);
+    }catch(err){
+      console.error(err);
+      res.status(500).json({message: "Error fetching students"})
+    }
+  });
+
 
 
 app.get('/getTeacherProfile/:userId', async (req, res) => {
@@ -173,6 +183,8 @@ app.get('/getStudentProfile/:userId', async (req, res) => {
   }
 });
 
+
+app.get("/")
 
 app.listen(5000,()=> {
     console.log("Server running on http://localhost:5000");
