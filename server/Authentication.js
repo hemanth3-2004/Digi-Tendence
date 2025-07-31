@@ -139,6 +139,17 @@ app.get("/fetchStudents", async(req,res)=> {
     }
   });
 
+  app.get("/getTeacherSubject/:userName",async(req,res)=>{
+    const {userName} = req.params;
+    try{
+      const result = await pool.query('SELECT  s.id AS subject_id, s.name AS subject_name FROM teacher_subjects ts JOIN teachers t ON ts.teacher_id = t.id JOIN subjects s ON ts.subject_id = s.id WHERE t.name = $1',[userName]);
+      res.status(200).json(result.rows[0]);
+    }catch(err){
+      console.error(err);
+      res.status(500).json({message: "Error fetching subject"})
+    }
+  })
+
 
 
 app.get('/getTeacherProfile/:userId', async (req, res) => {
@@ -183,8 +194,34 @@ app.get('/getStudentProfile/:userId', async (req, res) => {
   }
 });
 
+app.post("/submitAttendance",async(req,res)=>{
+ const attendanceList = req.body;
+ try{
+  for(const entry of attendanceList){
+    await pool.query(`INSERT INTO attendance (student_id, teacher_id, subject_id, date, status)
+         VALUES ($1, $2, $3, $4, $5)
+         ON CONFLICT (student_id, teacher_id, subject_id, date)
+         DO UPDATE SET status = EXCLUDED.status`,
+        [entry.student_id,entry.teacher_id,entry.subject_id,entry.date,entry.status]);
+  }
+  res.status(200).json({message: "Attendance recorded successfully"});
+ }catch(err){
+  console.error(err);
+  res.status(500).json({error : "error saving attendance"});
+ }
+});
 
-app.get("/")
+
+app.get("/getAttendance/:teacher_id/:subject_id/:date", async(req,res)=>{
+  const {teacher_id,subject_id,date} = req.params;
+  try{
+  const result  = await pool.query("SELECT * FROM attendance WHERE teacher_id = $1 AND subject_id = $2 AND date = $3",[teacher_id,subject_id,date]);
+  res.status(200).json(result.rows);
+}catch(err){
+  console.error(err);
+  res.status(500).json({message: "Server error"})
+}
+})
 
 app.listen(5000,()=> {
     console.log("Server running on http://localhost:5000");

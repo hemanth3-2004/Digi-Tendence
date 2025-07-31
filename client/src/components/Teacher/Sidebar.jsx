@@ -5,7 +5,12 @@ axios
 const Sidebar = (props) => {
     const [image,setImage] = useState(null);
     const userId = props.loggedInUser.id;
-
+    const userName = props.loggedInUser.name;
+    const [subject,setSubject] = useState({
+        subject_id: '',
+        subject_name: ''
+    });
+    props.setSubject(subject);
     const handleImageChange = async(e) => {
         const file = e.target.files[0];
         if(file) setImage(URL.createObjectURL(file));
@@ -31,6 +36,19 @@ const Sidebar = (props) => {
       });
   }, [userId]);
 
+    useEffect(() => {
+  axios.get(`http://localhost:5000/getTeacherSubject/${userName}`)
+    .then(res => {
+      console.log("Subject data:", res.data); 
+      setSubject(res.data);
+ 
+    })
+    .catch(err => {
+      console.error("Error fetching subject", err);
+    });
+}, [userName]);
+
+
   return (
       <div className='sidebar  border-2  w-[19%] h-[96%] mr-[.5%] rounded-md bg-[#f9fafb]'>
         <div className='border-2 border-red-500 h-[55%] rounded-md bg-gray-100'>
@@ -40,10 +58,11 @@ const Sidebar = (props) => {
             
             </div>
             </div>
-            <div className='flex flex-col justify-center items-center gap-3 '>
-                <div className='text-[1.5rem] font-medium'><h2>{props.loggedInUser.name}</h2></div>
+            <div className='flex flex-col justify-center items-center gap-1 '>
+                <div className='text-[1.3rem] font-medium'><h2>{props.loggedInUser.name}</h2></div>
+                <div className='text-[1.3rem] font-medium'><h2>{subject.subject_name}</h2></div>
                 <div className='text-[1.2rem] font-medium'><h2>{props.loggedInUser.email}</h2></div>
-                <div className='text-[1.4rem] font-medium text-white'>
+                <div className='text-[1.3rem] font-medium text-white'>
                 <button className='bg-red-500 px-2  rounded-md hover:shadow-lg hover:shadow-red-200 flex'
                 onClick={()=> {
                     setTimeout(()=>{

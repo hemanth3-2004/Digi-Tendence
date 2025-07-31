@@ -6,6 +6,7 @@ const TeacherDashboard = ({loggedInUser}) => {
     const [studentList,setStudentList] = useState(false);
     const [attendance,setAttendance] = useState(false);
     const [marks,setMarks] = useState(false);
+    const [subject,setSubject] = useState({})
 
 
   return (
@@ -15,11 +16,15 @@ const TeacherDashboard = ({loggedInUser}) => {
       setStudentList={setStudentList}
       setAttendance={setAttendance}
       setMarks={setMarks}
+      setSubject={setSubject}
       />
       <MainContainer 
+      loggedInUser={loggedInUser}
       studentList={studentList}
       attendance={attendance}
-      marks={marks}/>
+      marks={marks}
+      subject={subject}
+      />
     </div>
   )
 }
