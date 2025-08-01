@@ -1,6 +1,7 @@
 import React from 'react'
 
 const AttendanceSummary = ({attendanceData}) => {
+  console.log(attendanceData);
   return (
     <div className='h-[90vh]'>
 

@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import AttendanceSummary from "./AttendanceSummary";
+import VisualData from "./VisualData";
+
 const StudentList = ({ subject, loggedInUser }) => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -81,6 +83,7 @@ const StudentList = ({ subject, loggedInUser }) => {
                   onClick={(e)=>{
                     e.stopPropagation();
                     setSelectedStudent(null);
+                    console.log(attendanceData.length);
                   }}
                   >Close</button>
                   </div>
@@ -89,7 +92,9 @@ const StudentList = ({ subject, loggedInUser }) => {
                           <AttendanceSummary attendanceData={attendanceData} />                        
                       </div>
                       <div className="border border-gray-500"></div>
-                      <div className=" h-[90vh] w-[49%]"></div>
+                      <div className=" border-2 border-green-500 h-[90vh] w-[49%]">
+                        <VisualData  attendanceData={attendanceData}/>
+                      </div>
                     </div>
 
                   
