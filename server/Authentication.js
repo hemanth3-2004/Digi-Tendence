@@ -291,6 +291,57 @@ app.get("/getAllExams/:teacher_id/:subject_id", async (req, res) => {
   }
 });
 
+
+app.post("/submitMarks", async (req, res) => {
+  const marksArray = req.body;
+  console.log("Incoming marks data",marksArray);
+
+  try {
+    for(const entry of marksArray){
+      const {exam_id,student_id,marks_obtained} = entry;
+      console.log(`saving exan_id=${exam_id}, student_id=${student_id}, marks=${marks_obtained}`)
+    await pool.query(
+      `INSERT INTO marks (exam_id, student_id, marks_obtained)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (exam_id, student_id) DO UPDATE SET marks_obtained = EXCLUDED.marks_obtained`,
+      [exam_id,student_id,marks_obtained]
+    );
+  }
+
+    res.status(200).json({ message: "Marks recorded successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error saving Marks" });
+  }
+});
+
+app.get("/getAllMarks/:student_id/:selectedExamId", async (req, res) => {
+  const { student_id, selectedExamId } = req.params;
+  try {
+    const result = await pool.query(
+      "SELECT * FROM marks WHERE exam_id = $1 AND student_id = $2 ",
+      [selectedExamId, student_id]
+    );
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+app.get("/attendance/:studentId/:subjectId/:teacherId",async(req,res)=> {
+  const {studentId,subjectId,teacherId} = req.params;
+
+  try{
+    const result = await pool.query("SELECT date, status FROM attendance WHERE student_id = $1 AND subject_id = $2 AND teacher_id = $3 ORDER BY date",[studentId,subjectId,teacherId]);
+    res.status(200).json(result.rows);
+  }catch(err){
+    console.error(err);
+    res.status(500).json({message: "fetch failed"});
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server running on http://localhost:5000");
 });
