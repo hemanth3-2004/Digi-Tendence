@@ -19,6 +19,7 @@ const StudentDashboard = ({loggedInUser}) => {
       />
 
       <MainContainer 
+      loggedInUser={loggedInUser}
       calendar={calendar}
       attendance={attendance}
       marks={marks}

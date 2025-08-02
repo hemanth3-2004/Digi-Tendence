@@ -1,52 +1,73 @@
+import axios from 'axios';
 import React,{useState} from 'react';
-import dayjs from "dayjs";
+import { useEffect } from 'react';
+import AttendanceSummary from './AttendanceSummary';
+import VisualData from './VisualData';
+const Attendance = ({loggedInUser}) => {
+  const [subjects,setSubjects] = useState([]);
+  const [selectedSubjectId,setSelectedSubjectId] = useState(null);
+  const [attendanceData,setAttendanceData] = useState([]);
 
-const Attendance = () => {
+  useEffect(()=>{
+    axios.get("http://localhost:5000/fetchSubjects")
+    .then((res)=> {
+      setSubjects(res.data);
+    })
+    .catch((err)=> {
+      console.error("Error fetching subjects",err);
+    });
+  },[])
 
-    const [selectedDate, setSelectedDate] = useState(dayjs());
-
-  const handlePrev = () => {
-    setSelectedDate(prev => prev.subtract(1, 'day'));
+    const fetchAttendanceData = async (subjectId) => {
+    const res = await axios.get(
+      `http://localhost:5000/studentAttendance/${loggedInUser.id}/${subjectId}`
+    );
+    console.log(res.data);
+    setAttendanceData(res.data);
   };
 
-  const handleNext = () => {
-    setSelectedDate(prev => prev.add(1, 'day'));
-  };
+
   return (
-        <div className='mx-[1%] bg-blue-50'>
-        <div className='border-2 border-black  p-3 mt-[.5%] flex justify-center items-center font-medium rounded-md mb-0.5'>ATTENDANCE</div>
+        <div className='mx-[1%] bg-blue-50 h-[100%]'>
+        <div className='border-2 border-black  p-3 mt-[.5%] flex justify-center items-center font-medium rounded-md mb-0.5 h-[10%]'>
+          <div className='mr-'>
+          ATTENDANCE - 
+          </div>
 
-      <div className="flex items-center justify-center mt-4 mb-4">
-        <button 
-          onClick={handlePrev} 
-          className="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300 mr-4"
-        >
-          ⬅️ Prev Day
-        </button>
+          <div className='ml-2'>
+            <select
+          className="border rounded px-4 py-2"
+          value={selectedSubjectId || ""}
+          onChange={(e)=>{
+           const subjectId = e.target.value;
+           setSelectedSubjectId(subjectId);
+           fetchAttendanceData(subjectId);
+          }}
+            >
+          <option value="">Select a subject</option>
+          {subjects.map((subject) => (
+            <option  key={subject.id} value={subject.id}>
+              {subject.name}
+            </option>
+          ))}
+        </select>
+          </div>
+          </div>
 
-        <div className="font-medium text-lg">
-          {selectedDate.format("DD MMMM YYYY")}
+
+       {selectedSubjectId && 
+        <div className="flex overflow-y-scroll">
+             <div className=" w-[49%] gap-[1%] overflow-y-scroll scrollbar-hide ">
+               <AttendanceSummary attendanceData={attendanceData} />                        
+             </div>
+             <div className="border border-gray-900 mr-2"></div>
+            <div className="h-[90vh] w-[48%]  rounded-md mt-2">
+             <VisualData  attendanceData={attendanceData}/>
+            </div>
         </div>
 
-        <button 
-          onClick={handleNext} 
-          className="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300 ml-4"
-        >
-          Next Day ➡️
-        </button>
-      </div>
-
-
-        <div className='  flex justify-evenly  rounded-md mb-0.5'>
-          <div className='border-2 border-black w-[16%] text-center rounded-md'>Id</div>
-          <div className='border-2 border-black w-[28%] text-center rounded-md'>Name</div>
-          <div className='border-2 border-black w-[28%] text-center rounded-md flex gap-1 justify-center'> <p >Roll</p><p>Number</p></div>
-          <div className='border-2 border-black w-[28%] text-center rounded-md'>Attendence</div>
-        </div>
-    
-    
-    
-    
+       }
+      
          </div>
   )
 }

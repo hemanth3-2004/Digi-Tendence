@@ -7,7 +7,7 @@ const Calendar = () => {
         Student's Calendar 
       </div>
       <div className='border-2 w-[96%] bg-black h-[37rem] border-black text-center text-[1.5rem] rounded-lg'>
-        <img className="w-full h-full rounded-md" src="../../../public/Screenshot 2025-08-02 145042.png" alt="Calendar" />
+        <img className="w-full h-full rounded-md" src="../../../Screenshot 2025-08-02 145042.png" alt="Calendar" />
       </div>
     </div>
   );

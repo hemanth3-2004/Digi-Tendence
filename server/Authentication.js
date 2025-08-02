@@ -329,7 +329,17 @@ app.get("/getAllMarks/:student_id/:selectedExamId", async (req, res) => {
   }
 });
 
+app.get("/studentAttendance/:studentId/:subjectId/",async(req,res)=> {
+  const {studentId,subjectId} = req.params;
 
+  try{
+    const result = await pool.query("SELECT date, status FROM attendance WHERE student_id = $1 AND subject_id = $2 ORDER BY date",[studentId,subjectId]);
+    res.status(200).json(result.rows);
+  }catch(err){
+    console.error(err);
+    res.status(500).json({message: "fetch failed"});
+  }
+});
 app.get("/attendance/:studentId/:subjectId/:teacherId",async(req,res)=> {
   const {studentId,subjectId,teacherId} = req.params;
 
@@ -341,6 +351,16 @@ app.get("/attendance/:studentId/:subjectId/:teacherId",async(req,res)=> {
     res.status(500).json({message: "fetch failed"});
   }
 });
+
+app.get("/fetchSubjects",async(req,res)=> {
+    try{
+        const result = await pool.query("SELECT * FROM subjects");
+        res.status(200).json(result.rows);
+    }catch(err){
+        console.error(err);
+        res.status(500).json({error: "Server error"});
+    }
+})
 
 app.listen(5000, () => {
   console.log("Server running on http://localhost:5000");
