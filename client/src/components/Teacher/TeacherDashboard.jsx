@@ -19,6 +19,10 @@ const TeacherDashboard = ({loggedInUser}) => {
       setAttendance={setAttendance}
       setMarks={setMarks}
       setSubject={setSubject}
+      calendar={calendar}
+      studentList={studentList}
+      attendance={attendance}
+      marks={marks}
       />
       <MainContainer 
       loggedInUser={loggedInUser}

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, {useState,useEffect} from 'react';
 import { CiLogout } from "react-icons/ci";
-axios
+import { GoDotFill } from "react-icons/go";
+
 const Sidebar = (props) => {
     const [image,setImage] = useState(null);
     const userId = props.loggedInUser.id;
@@ -77,40 +78,53 @@ const Sidebar = (props) => {
             </div>
         </div>
         <div className=' h-[45%] rounded-md bg-gray-100 '>
-            <div className='flex flex-col gap-1  pt-2 justify-center items-center '><div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 mt-2'
+            <div className='flex flex-col gap-1  pt-2 justify-center items-center '>
+            <div className='text-[1.4rem] font-medium cursor-pointer hover:text-blue-800 mt-2 flex justify-center items-center'
             onClick={()=>{
                 props.setCalendar(true)
                 props.setStudentList(false)
                 props.setAttendance(false)
                 props.setMarks(false)
             }}
-            ><h2>Calender</h2></div>
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 mt-2'
+            >
+             <span className={`text-sm mr-1 ${props.calendar  ? 'text-blue-500': 'text-transparent'}`}><GoDotFill /></span> 
+              <h2>Calender</h2>
+            </div>
+
+            <div className='text-[1.4rem] font-medium cursor-pointer hover:text-blue-800  flex justify-center items-center'
             onClick={()=>{
                 props.setCalendar(false)
                 props.setStudentList(true)
                 props.setAttendance(false)
                 props.setMarks(false)
             }}
-            ><h2>Students List</h2></div>
+            >
+            <span className={`text-sm mr-1 ${props.studentList  ? 'text-blue-500': 'text-transparent'}`}><GoDotFill /></span>  
+            <h2>Students List</h2>
+            </div>
 
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'
+            <div className='text-[1.4rem] font-medium cursor-pointer hover:text-blue-800 flex justify-center items-center'
             onClick={()=>{
                 props.setCalendar(false)
                 props.setStudentList(false)
                 props.setAttendance(true)
                 props.setMarks(false)
             }}          
-            ><h2>Attendence</h2></div>
+            >
+            <span className={`text-sm mr-1 ${props.attendance  ? 'text-blue-500': 'text-transparent'}`}><GoDotFill /></span> 
+            <h2>Attendence</h2>
+            </div>
 
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'
+            <div className='text-[1.4rem] font-medium cursor-pointer hover:text-blue-800 flex justify-center items-center'
             onClick={()=>{
                 props.setCalendar(false)
                 props.setStudentList(false)
                 props.setAttendance(false)
                 props.setMarks(true)
             }}
-            ><h2>Marks</h2></div>
+            >
+            <span className={`text-sm mr-1 ${props.marks  ? 'text-blue-500': 'text-transparent'}`}><GoDotFill /></span>  
+            <h2>Marks</h2></div>
             </div>
         </div>
       </div>
