@@ -79,7 +79,7 @@ const StudentList = ({ subject, loggedInUser }) => {
                   <h2 className="text-lg text-center font-bold mb-2 ml-56">
                     Attendance Summary for {student.name} - {subject.subject_name}
                   </h2>
-                  <button className="bg-red-500 text-lg text-white font-semibold px-3 py-1 rounded flex ml-60"
+                  <button className="bg-red-500 text-lg text-white font-semibold px-3 py-1 rounded flex ml-60 justify-center"
                   onClick={(e)=>{
                     e.stopPropagation();
                     setSelectedStudent(null);
@@ -91,8 +91,8 @@ const StudentList = ({ subject, loggedInUser }) => {
                         <div className=" w-[49%] gap-[1%] overflow-y-scroll scrollbar-hide">
                           <AttendanceSummary attendanceData={attendanceData} />                        
                       </div>
-                      <div className="border border-gray-500"></div>
-                      <div className=" border-2 border-green-500 h-[90vh] w-[49%]">
+                      <div className="border border-gray-900 mr-2"></div>
+                      <div className="h-[90vh] w-[48%] bg-[#f1f1f1] rounded-md mt-2">
                         <VisualData  attendanceData={attendanceData}/>
                       </div>
                     </div>

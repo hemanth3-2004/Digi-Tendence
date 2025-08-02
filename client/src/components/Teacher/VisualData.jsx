@@ -1,32 +1,36 @@
-import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import React from "react";
+import Plot from "react-plotly.js";
 
-const VisualData = () => {
+const VisualData = ({ attendanceData }) => {
+  const presentCount = attendanceData.filter(a => a.status?.toLowerCase() === 'present').length;
+  const absentCount = attendanceData.filter(a => a.status?.toLowerCase() === 'absent').length;
 
   const data = [
-    { name: 'Present', value: 5 },
-    { name: 'Absent', value: 2 }
+    {
+      x: ['Present', 'Absent'],
+      y: [presentCount, absentCount],
+      type: 'bar',
+      marker: {
+        color: ['#4ade80', '#f87171']
+      }
+    }
   ];
-  const colors = ['#4ade80', '#f87171'];
+
+  const layout = {
+    title: 'Attendance Overview',
+    xaxis: {
+      title: 'Status',
+    },
+    yaxis: {
+      title: 'Count',
+    },
+    height: 400,
+    width: 400,
+  };
 
   return (
-    <div style={{ width: 300, height: 300 }}>
-      <PieChart width={250} height={250}>
-        <Pie
-          data={data}
-          cx={125}
-          cy={125}
-          outerRadius={90}
-          dataKey="value"
-          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend verticalAlign="bottom" />
-      </PieChart>
+    <div className=" flex justify-center items-center mt-3 pt-2">
+      <Plot className="bg-[#121212] " data={data} layout={layout} />
     </div>
   );
 };

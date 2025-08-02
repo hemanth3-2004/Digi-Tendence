@@ -77,9 +77,17 @@ const Sidebar = (props) => {
             </div>
         </div>
         <div className=' h-[45%] rounded-md bg-gray-100 '>
-            <div className='flex flex-col gap-1  pt-2 justify-center items-center '>
+            <div className='flex flex-col gap-1  pt-2 justify-center items-center '><div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 mt-2'
+            onClick={()=>{
+                props.setCalendar(true)
+                props.setStudentList(false)
+                props.setAttendance(false)
+                props.setMarks(false)
+            }}
+            ><h2>Calender</h2></div>
             <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 mt-2'
             onClick={()=>{
+                props.setCalendar(false)
                 props.setStudentList(true)
                 props.setAttendance(false)
                 props.setMarks(false)
@@ -88,17 +96,19 @@ const Sidebar = (props) => {
 
             <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'
             onClick={()=>{
-                props.setAttendance(true)
+                props.setCalendar(false)
                 props.setStudentList(false)
+                props.setAttendance(true)
                 props.setMarks(false)
             }}          
             ><h2>Attendence</h2></div>
 
             <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800'
             onClick={()=>{
-                props.setMarks(true)
+                props.setCalendar(false)
                 props.setStudentList(false)
                 props.setAttendance(false)
+                props.setMarks(true)
             }}
             ><h2>Marks</h2></div>
             </div>
