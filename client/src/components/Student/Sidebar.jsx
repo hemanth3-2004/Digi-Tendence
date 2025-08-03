@@ -61,7 +61,7 @@ const Sidebar = (props) => {
         <div className=' h-[45%] rounded-md bg-gray-100 '>
             <div className='flex flex-col gap-1  pt-2 justify-center items-center '>
                 
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 flex justify-center items-center'
+            <div className='text-[1.4rem] font-medium cursor-pointer hover:text-blue-800 flex justify-center items-center'
             onClick={()=>{
                 props.setCalendar(true)
                 props.setAttendance(false)
@@ -74,7 +74,7 @@ const Sidebar = (props) => {
             <h2>Calendar</h2>
             </div>
 
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 flex justify-center items-center '
+            <div className='text-[1.4rem] font-medium cursor-pointer hover:text-blue-800 flex justify-center items-center '
             onClick={()=>{
                 props.setCalendar(false)
                 props.setAttendance(true)
@@ -86,7 +86,7 @@ const Sidebar = (props) => {
                 </div>
 
 
-            <div className='text-[1.4rem] font-medium hover:bg-blue-200 cursor-pointer hover:text-blue-800 flex justify-center items-center'
+            <div className='text-[1.4rem] font-medium  cursor-pointer hover:text-blue-800 flex justify-center items-center'
             onClick={()=>{
                 props.setCalendar(false)
                 props.setAttendance(false)

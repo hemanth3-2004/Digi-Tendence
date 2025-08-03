@@ -29,8 +29,8 @@ const VisualData = ({ attendanceData }) => {
   };
 
   return (
-    <div className=" flex justify-center items-center mt-3 pt-2">
-      <Plot className="bg-[#121212] " data={data} layout={layout} />
+    <div className=" flex justify-center items-center mt-3 pt-2 font-outfit">
+      <Plot className="font-outfit" data={data} layout={layout} />
     </div>
   );
 };

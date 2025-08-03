@@ -3,7 +3,7 @@ import React from 'react'
 const AttendanceSummary = ({attendanceData}) => {
   console.log(attendanceData);
   return (
-    <div className='h-[100vh]'>
+    <div className='overflow-y-auto scrollbar-hide h-[100%] font-outfit'>
 
       <h2 className='text-center pt-2'>Number of classes taken : {attendanceData.length}</h2>
       <div className="flex justify-center items-center  mt-1 mb-0.5">

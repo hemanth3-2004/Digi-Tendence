@@ -7,7 +7,7 @@ const StudentDashboard = ({loggedInUser}) => {
   const [attendance,setAttendance] = useState(false);
   const [marks,setMarks] = useState(false);
   return (
-    <div className='h-[100vh] [w-100vw] bg-[#eceaeb] flex justify-center items-center'>
+    <div className='h-[100vh] [w-100vw] bg-[#eceaeb] flex justify-center items-center font-outfit'>
       <Sidebar 
       loggedInUser={loggedInUser}
       setCalendar={setCalendar} 

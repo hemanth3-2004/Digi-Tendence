@@ -2,7 +2,7 @@ import React from 'react';
 
 const Calendar = () => {
   return (
-    <div className='flex flex-col gap-2 justify-center items-center w-[100%] mt-2'>
+    <div className='flex flex-col gap-2 justify-center items-center w-[100%] mt-2 font-outfit'>
       <div className='border-2 w-[96%] h-[20%] border-black text-center text-[1.5rem] py-1 rounded-lg'>
         Student's Calendar 
       </div>

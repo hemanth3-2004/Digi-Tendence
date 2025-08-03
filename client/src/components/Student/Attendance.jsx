@@ -28,13 +28,13 @@ const Attendance = ({loggedInUser}) => {
 
 
   return (
-        <div className='mx-[1%] bg-blue-50 h-[100%]'>
-        <div className='border-2 border-black  p-3 mt-[.5%] flex justify-center items-center font-medium rounded-md mb-0.5 h-[10%]'>
-          <div className='mr-'>
+        <div className='mx-[1%] bg-gray-100 h-[98%] rounded-md '>
+        <div className='border-2 border-gray-500  p-3 mt-[.5%] flex justify-center items-center font-medium rounded-md mb-0.5 h-[10%]'>
+          <div className='mr-1 font-outfit'>
           ATTENDANCE - 
           </div>
 
-          <div className='ml-2'>
+          <div className='ml-2 font-outfit' >
             <select
           className="border rounded px-4 py-2"
           value={selectedSubjectId || ""}
@@ -56,12 +56,12 @@ const Attendance = ({loggedInUser}) => {
 
 
        {selectedSubjectId && 
-        <div className="flex overflow-y-scroll">
-             <div className=" w-[49%] gap-[1%] overflow-y-scroll scrollbar-hide ">
+        <div className="flex  h-[87%] font-outfit">
+             <div className=" w-[49%] gap-[1%] h-[100%] ">
                <AttendanceSummary attendanceData={attendanceData} />                        
              </div>
-             <div className="border border-gray-900 mr-2"></div>
-            <div className="h-[90vh] w-[48%]  rounded-md mt-2">
+             <div className="border border-gray-900 mr-2 my-10"></div>
+            <div className="h-[100%] w-[48%]  rounded-md mt-2">
              <VisualData  attendanceData={attendanceData}/>
             </div>
         </div>

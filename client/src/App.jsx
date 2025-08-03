@@ -12,7 +12,7 @@ function App() {
   }
   return (
     <>
-      <div>
+      <div className="font-outfit">
         {!teacher && !student  ? 
         (<LoginPage setNewStudent={setNewStudent} setNewTeacher={setNewTeacher} onLoginSuccess={handleLoginSuccess}/>
 

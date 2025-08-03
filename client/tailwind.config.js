@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily : {
+        outfit : ['"outfit"','sans-serif'],
+      },
+    },
   },
     plugins:[
     require('tailwind-scrollbar-hide'),
