@@ -62,6 +62,7 @@ const Attendence = ({ subject, loggedInUser }) => {
         `http://localhost:5000/getAttendance/${loggedInUser.id}/${subject.subject_id}/${formattedDate}`
       );
       setShowAttendance(res.data);
+      setAttendance({});
     } catch (err) {
       console.error('Error submitting attendance', err);
     }

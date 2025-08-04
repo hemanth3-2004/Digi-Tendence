@@ -340,6 +340,28 @@ app.get("/studentAttendance/:studentId/:subjectId/",async(req,res)=> {
     res.status(500).json({message: "fetch failed"});
   }
 });
+
+app.get("/studentMarks/:studentId/:subjectId/",async(req,res)=> {
+  const {studentId,subjectId} = req.params;
+
+  try{
+    const result = await pool.query(
+      `SELECT
+          e.exam_id,
+          e.exam_name,
+          e.total_marks,
+          m.marks_obtained 
+       FROM marks m
+       JOIN exams e ON m.exam_id = e.exam_id
+       WHERE m.student_id = $1 AND e.subject_id = $2
+       ORDER BY e.exam_name ASC`
+      ,[studentId,subjectId]);
+    res.status(200).json(result.rows);
+  }catch(err){
+    console.error(err);
+    res.status(500).json({message: "fetch failed"});
+  }
+});
 app.get("/attendance/:studentId/:subjectId/:teacherId",async(req,res)=> {
   const {studentId,subjectId,teacherId} = req.params;
 

@@ -63,9 +63,7 @@ const Marks = ({ subject, loggedInUser }) => {
       }
     };
 
-    if (selectedExamId && students.length > 0) {
       fetchMarks();
-    }
   }, [selectedExamId, students]);
 
   // Create a new exam
@@ -101,6 +99,17 @@ const Marks = ({ subject, loggedInUser }) => {
     try {
       await axios.post("http://localhost:5000/submitMarks", marksData);
       alert("Marks submitted!");
+     
+        const results = await Promise.all(
+          students.map((student) =>
+            axios.get(
+              `http://localhost:5000/getAllMarks/${student.id}/${selectedExamId}`
+            )
+          )
+        );
+        const allMarks = results.map((res) => res.data[0]);
+        setShowMarks(allMarks);
+        setMarks({});
     } catch (err) {
       console.error("Error submitting marks", err);
     }
